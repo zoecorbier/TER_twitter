@@ -10,7 +10,7 @@ https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-twe
 
 # Add your Twitter API credentials
 consumer_key=''
-consumer_secret=''
+consumer_secret=' '
 access_token=''
 access_token_secret=''
 
