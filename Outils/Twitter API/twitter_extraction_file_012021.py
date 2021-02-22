@@ -4,15 +4,16 @@ import ssl
 import time
 from requests.exceptions import Timeout, ConnectionError
 from requests.packages.urllib3.exceptions import ReadTimeoutError
+import secrets
 
 ''' More info on Standard Search API:
 https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets.html'''
 
 # Add your Twitter API credentials
-consumer_key=''
-consumer_secret=' '
-access_token=''
-access_token_secret=''
+consumer_key=secrets.consumer_key
+consumer_secret=secrets.consumer_secret
+access_token=secrets.access_key
+access_token_secret=secrets.access_secret
 
 # Handling authentication with Twitter
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
