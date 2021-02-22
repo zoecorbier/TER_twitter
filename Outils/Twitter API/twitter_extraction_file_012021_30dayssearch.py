@@ -1,5 +1,6 @@
-import tweepy
 import json
+
+import tweepy
 
 import secrets
 
