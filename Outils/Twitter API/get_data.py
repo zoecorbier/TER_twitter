@@ -35,7 +35,6 @@ def work(date_since, date_until, search_words):
     # Define the search term to make the search
     #search_words = "kill myself"
     logging.info(date_until)
-
     places=api.geo_search(query="USA", granularity="country")
 
     # Exclude retweets in our search

@@ -24,8 +24,10 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 # Define the search term to make the search
 search_words = "suicide"
 
+places=api.geo_search(query="USA", granularity="country")
+
 # Exclude retweets in our search
-new_search = search_words + " -filter:retweets"
+new_search = search_words + " -filter:retweets" + places[0].id
 
 '''Search for tweets created before a given date.
 Keep in mind that the Twitter Standard Search API has a 7-day limit. 
