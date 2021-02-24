@@ -1,9 +1,11 @@
-import tweepy
 import csv
-import ssl
 import time
+
+import tweepy
+import ssl
 from requests.exceptions import Timeout, ConnectionError
 from requests.packages.urllib3.exceptions import ReadTimeoutError
+
 import secrets
 
 ''' More info on Standard Search API:

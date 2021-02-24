@@ -1,5 +1,7 @@
-import tweepy
 import json
+
+import tweepy
+
 import secrets
 
 consumer_key=secrets.consumer_key
