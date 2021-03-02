@@ -20,7 +20,7 @@ def connection(base):
         print('Problème avec la connexion à la base')
     return client
 
-def insert_tweet(db,collection,tweet):
+def insert_tweet_in_collection(db,collection,tweet):
     """
     db : MongoClient Object
     collection : collection dans la base, équivalent aux tables dans sql
