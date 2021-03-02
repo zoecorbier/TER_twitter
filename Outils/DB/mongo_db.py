@@ -28,7 +28,7 @@ def insert_tweet(db,collection,tweet):
     return : nothing
     """
     try :
-        db.collection.insert_one(tweet)
+        return db.collection.insert_one(tweet)
     except :
         print('Error during',EOFError)
 
@@ -36,4 +36,8 @@ def get_all_tweets_from_collection(db,collection):
     """
     Permet de récupérer les tweets provenant d'une collection
     """
-    db.collection.
+    try :
+        return db.collection
+    except :
+        print('Error during',EOFError)
+    
