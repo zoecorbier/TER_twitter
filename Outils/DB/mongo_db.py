@@ -41,3 +41,11 @@ def get_all_tweets_from_collection(db,collection):
     except :
         print('Error during',EOFError)
     
+def get_one_tweet_from_collection(db,collection,objets):
+    """
+    Permet de récupérer un tweet avec un objet type json 
+    """
+    try :
+        return db.collection.find(objets)
+    except :
+        print('Error during', EOFError)
