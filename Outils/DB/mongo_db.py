@@ -49,3 +49,5 @@ def get_one_tweet_from_collection(db,collection,objets):
         return db.collection.find(objets)
     except :
         print('Error during', EOFError)
+
+
