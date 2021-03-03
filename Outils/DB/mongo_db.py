@@ -18,7 +18,7 @@ def connection(base):
         print('Connexion réussie à la base : ',base)
     except:
         print('Problème avec la connexion à la base')
-    return client
+    return client[base]
 
 def insert_tweet_in_collection(db,collection,tweet):
     """
@@ -28,16 +28,19 @@ def insert_tweet_in_collection(db,collection,tweet):
     return : nothing
     """
     try :
-        return db.collection.insert_one(tweet)
+        db[collection].insert_one(tweet)
+        print('Insertion terminée')
     except :
-        print('Error during',EOFError)
+        print('Error during',EnvironmentError)
 
 def get_all_tweets_from_collection(db,collection):
     """
     Permet de récupérer les tweets provenant d'une collection
+    Return :
+        Objet contenant l'ensemble des tweets d'une collection
     """
     try :
-        return db.collection
+        return db[collection].find()
     except :
         print('Error during',EOFError)
     
@@ -46,7 +49,7 @@ def get_one_tweet_from_collection(db,collection,objets):
     Permet de récupérer un tweet avec un objet type json 
     """
     try :
-        return db.collection.find(objets)
+        return db.collection.find_one(objets)
     except :
         print('Error during', EOFError)
 
