@@ -3,6 +3,7 @@ Analyse/CleaningData/.ipynb_checkpoints/key-firestore-checkpoint.json
 Analyse/CleaningData/.ipynb_checkpoints/Untitled-checkpoint.ipynb
 Outils/Learning DB/.ipynb_checkpoints/Data_formation-checkpoint.ipynb
 Outils/secrets.py
+Outils/DB/secrets.py
 
 # pycache
 *.pyc
