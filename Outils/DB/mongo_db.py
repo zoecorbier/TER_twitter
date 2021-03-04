@@ -20,6 +20,12 @@ def connection():
         print('Problème avec la connexion à la base')
     return client
 
+def create_collection(db,word,date):
+    try :
+        db.create_collection(word+date)
+    except :
+        print("Unexpected error:", sys.exc_info()[0])
+    
 #Database data interaction
 
 def insert_tweet_in_collection(db,collection,file):
@@ -55,8 +61,9 @@ def get_one_file_from_collection(db,collection,information):
     except :
         print("Unexpected error:", sys.exc_info()[0])
     
+#Fix the bson file
 
-def bson_json_file(file):
+def bson_to_json_file(file):
     """
     Convert bson file to json
     return : json file
@@ -67,5 +74,8 @@ def bson_json_file(file):
     except :
         print("Unexpected error:", sys.exc_info()[0])
 
-
-
+if __name__ == "__main__":
+    tweet=connection().tweet
+    print('Connexion')
+    all_tweets=bson_to_json_file(get_all_files_from_collection(tweet,'suicide'))
+    print(all_tweets[0])
