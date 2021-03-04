@@ -4,6 +4,7 @@ import sys
 
 import pymongo
 from bson.json_util import loads, dumps
+import json
 
 import secrets
 
@@ -69,7 +70,7 @@ def get_one_file_from_collection(db,collection,information):
     Permet de récupérer un tweet avec un objet type json 
     """
     try :
-        return db.collection.find_one(information)
+        return db[collection].find_one(information)
     except :
         print("Unexpected error:", sys.exc_info()[0])
     
@@ -86,8 +87,13 @@ def bson_to_json_file(file):
     except :
         print("Unexpected error:", sys.exc_info()[0])
 
-def json_tweet_model(file):
-    print('klkne')
+def json_tweet_model(file,word):
+    json=bson_to_json_file(file)
+    #Récupérer les informations de l'utilisateur
+    
+    #
+
+    
 
 if __name__ == "__main__":
     tweet=connection().tweet
