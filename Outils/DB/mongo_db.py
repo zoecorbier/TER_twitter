@@ -12,15 +12,15 @@ password=secrets.mongo_password
 
 ##Database connection
 
-def connection():
+def connection(base='tweet'):
     try:
-        client=pymongo.MongoClient("mongodb+srv://lucas:9gBYJZuhS7TVGAj6@application.wl73u.mongodb.net/tweet?retryWrites=true&w=majority")
+        client=pymongo.MongoClient("mongodb+srv://"+user+":"+password+"@application.wl73u.mongodb.net/"+base+"?retryWrites=true&w=majority")
         print('Connexion réussie', client.database_names)
     except:
-        print('Problème avec la connexion à la base')
+        print("Unexpected error:", sys.exc_info()[0])
     return client
 
-def create_collection(db,word,date):
+def create_collection_name(db,word,date):
     try :
         db.create_collection(word+date)
     except :
