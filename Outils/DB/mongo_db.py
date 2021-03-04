@@ -21,10 +21,22 @@ def connection(base='tweet'):
     return client
 
 def create_collection_name(db,word,date):
-    try :
-        db.create_collection(word+date)
-    except :
-        print("Unexpected error:", sys.exc_info()[0])
+    """
+    db : MongoDB object allow database connexion.
+    word : terme searched in Twitter API.
+    date : witch periode is collected 24_01_2010.
+    RETURN :
+        string
+    """
+    if type(word)==str and type(date)==str:
+        if len(date) != 10 :
+            print('Incorect length for date in collection_name')
+        else :
+            value=word+'_'+date
+            db.create_collection(value)
+            print(value,'is created')
+    else :
+        print('Type error in collection_name')
     
 #Database data interaction
 
@@ -79,3 +91,4 @@ if __name__ == "__main__":
     print('Connexion')
     all_tweets=bson_to_json_file(get_all_files_from_collection(tweet,'suicide'))
     print(all_tweets[0])
+    create_collection_name(tweet,'suicide','04_03_2020')
