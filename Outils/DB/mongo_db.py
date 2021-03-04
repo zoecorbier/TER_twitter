@@ -1,26 +1,46 @@
 #conda install pymongo
 #Peut-être créer une fichier qui installe toutes les dépendances automatiquement
+import sys
 
 import pymongo
+from bson.json_util import loads, dumps
+
 import secrets
 
 user=secrets.mongo_name_access
 password=secrets.mongo_password
 
-def connection(base):
-    """
-    Créer une connexion à la base de données spécifiée
-    return :
-        MongoClient Object : Objet base de données
-    """
+##Database connection
+
+def connection(base='tweet'):
     try:
         client=pymongo.MongoClient("mongodb+srv://"+user+":"+password+"@application.wl73u.mongodb.net/"+base+"?retryWrites=true&w=majority")
-        print('Connexion réussie à la base : ',base)
+        print('Connexion réussie', client.database_names)
     except:
-        print('Problème avec la connexion à la base')
+        print("Unexpected error:", sys.exc_info()[0])
     return client
 
-def insert_tweet_in_collection(db,collection,tweet):
+def create_collection_name(db,word,date):
+    """
+    db : MongoDB object allow database connexion.
+    word : terme searched in Twitter API.
+    date : witch periode is collected 24_01_2010.
+    RETURN :
+        string
+    """
+    if type(word)==str and type(date)==str:
+        if len(date) != 10 :
+            print('Incorect length for date in collection_name')
+        else :
+            value=word+'_'+date
+            db.create_collection(value)
+            print(value,'is created')
+    else :
+        print('Type error in collection_name')
+    
+#Database data interaction
+
+def insert_tweet_in_collection(db,collection,file):
     """
     db : MongoClient Object
     collection : collection dans la base, équivalent aux tables dans sql
@@ -28,26 +48,47 @@ def insert_tweet_in_collection(db,collection,tweet):
     return : nothing
     """
     try :
-        return db.collection.insert_one(tweet)
+        db[collection].insert_one(file)
+        print('Insertion terminée')
     except :
-        print('Error during',EOFError)
+        print("Problème d'insertion")
 
-def get_all_tweets_from_collection(db,collection):
+def get_all_files_from_collection(db,collection):
     """
     Permet de récupérer les tweets provenant d'une collection
+    Return :
+        Objet contenant l'ensemble des tweets d'une collection
     """
     try :
-        return db.collection
+        return db[collection].find()
     except :
-        print('Error during',EOFError)
+        print("Unexpected error:", sys.exc_info()[0])
     
-def get_one_tweet_from_collection(db,collection,objets):
+def get_one_file_from_collection(db,collection,information):
     """
     Permet de récupérer un tweet avec un objet type json 
     """
     try :
-        return db.collection.find(objets)
+        return db.collection.find_one(information)
     except :
-        print('Error during', EOFError)
+        print("Unexpected error:", sys.exc_info()[0])
+    
+#Fix the bson file
 
+def bson_to_json_file(file):
+    """
+    Convert bson file to json
+    return : json file
+    """
+    try :
+        json_str = dumps(file)
+        return loads(json_str)
+    except :
+        print("Unexpected error:", sys.exc_info()[0])
 
+if __name__ == "__main__":
+    tweet=connection().tweet
+    print('Connexion')
+    all_tweets=bson_to_json_file(get_all_files_from_collection(tweet,'suicide'))
+    print(all_tweets[0])
+    create_collection_name(tweet,'suicide','04_03_2020')

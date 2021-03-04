@@ -2,6 +2,11 @@ key-firestore.json
 
 Analyse/CleaningData/.ipynb_checkpoints/Untitled-checkpoint.ipynb
 Outils/Learning DB/.ipynb_checkpoints/Data_formation-checkpoint.ipynb
+<<<<<<< HEAD
+=======
+Outils/secrets.py
+Outils/DB/secrets.py
+>>>>>>> b5f5a5c3242cb2380320a089633effbf740ef1ff
 
 
 # files containing harmfull data
