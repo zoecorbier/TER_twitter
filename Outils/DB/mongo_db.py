@@ -86,6 +86,9 @@ def bson_to_json_file(file):
     except :
         print("Unexpected error:", sys.exc_info()[0])
 
+def json_tweet_model(file):
+    print('klkne')
+
 if __name__ == "__main__":
     tweet=connection().tweet
     print('Connexion')
