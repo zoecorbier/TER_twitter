@@ -3,6 +3,8 @@
 
 import pymongo
 import secrets
+import bson.json_util
+import json
 
 user=secrets.mongo_name_access
 password=secrets.mongo_password
@@ -52,5 +54,17 @@ def get_one_tweet_from_collection(db,collection,objets):
         return db.collection.find_one(objets)
     except :
         print('Error during', EOFError)
+
+def bson_json_file(file):
+    """
+    Convert bson file to json
+    return : json file
+    """
+    try :
+        file_dumped = bson.json_util.dumps(file)
+        return json.loads(file_dumped)
+    except :
+        print("Conversion bson to json have problem")
+
 
 
