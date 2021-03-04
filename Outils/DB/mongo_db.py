@@ -87,13 +87,15 @@ def bson_to_json_file(file):
     except :
         print("Unexpected error:", sys.exc_info()[0])
 
-def json_tweet_model(file,word):
+def json_tweet_model(db,file,word):
     json=bson_to_json_file(file)
-    #Récupérer les informations de l'utilisateur
-    
-    #
-
-    
+    user_info=file['user']
+    del json['user']
+    if not db.users.find_one({'id':user_info['id']}):
+        db.users.insert_one(user_info)
+    json['user_id']=user_info['id']
+    json['critic_word']=word
+    db.tweets.insert_one(json)
 
 if __name__ == "__main__":
     tweet=connection().tweet
