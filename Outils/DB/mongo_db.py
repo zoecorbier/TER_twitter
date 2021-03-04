@@ -62,10 +62,10 @@ def bson_json_file(file):
     return : json file
     """
     try :
-        json_str = dumps(all_collection)
+        json_str = dumps(file)
         return loads(json_str)
     except :
-        print("Conversion bson to json have problem")
+        print("Unexpected error:", sys.exc_info()[0])
 
 
 
