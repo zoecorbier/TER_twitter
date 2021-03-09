@@ -97,14 +97,14 @@ def work(date_since, date_until, search_words):
             except tweepy.RateLimitError:
                 print('Reached rate limite. Sleeping for >15 minutes')
                 time.sleep(15 * 61)
-            
+    db=mongo.connection() 
     tweets = []
     for tweet in limit_handled(tweepy.Cursor(api.search_30_day,
                                 environment_name='devSOS',
                                 query=search_words
                                  ).items(totalTweets)):
 
- 
+        mongo.json_tweet_model(db,tweet._json,search_word)
         tweets.append(tweet._json)
 
     logging.info ("{}: {} tweets gathered".format(search_words, len(tweets)))
