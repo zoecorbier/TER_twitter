@@ -22,10 +22,10 @@ logging.basicConfig(filename='import.log', filemode='w', format='%(name)s - %(le
 https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets.html'''
 
 # Add your Twitter API credentials
-consumer_key = "gZS6Ha4EiWq3kUh7cDPnfBT8v"
-consumer_secret = "dD6xVCpxWMc2yraeq5PVlKqhcq8eW7XK5ByHu5TpTIEY7TzFvb"
-access_key = "1439385686-SZqm9xKcE7oILzif3yzXU5UQxu1psLPXITxyja2"
-access_secret = "81222D25bNus6MyfYqLvL15khsRD8ogyrVYrNV4V7hDwP"
+consumer_key = secrets.consumer_key
+consumer_secret = secrets.consumer_secret
+access_key = secrets.access_key
+access_secret = secrets.access_secret
 
 # Handling authentication with Twitter
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
