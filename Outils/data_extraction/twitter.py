@@ -15,7 +15,7 @@ import mongo_db as db
 
 import secrets
 
-db_client = db.connection()
+db_client = db.connection().tweet
 
 logging.basicConfig(filename='import.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',  datefmt='%d-%b-%y', level=logging.INFO)
 
@@ -36,7 +36,8 @@ auth.set_access_token(access_key, access_secret)
 
 # Create a wrapper for the API provided by Twitter
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-def work(date_since, date_until, search_words):
+
+def work(date_since = None , date_until = None, search_words = None):
     # Define the search term to make the search
     #search_words = "kill myself"
     logging.info(date_until)
@@ -44,8 +45,9 @@ def work(date_since, date_until, search_words):
     places=api.geo_search(query="USA", granularity="country")
 
     # Exclude retweets in our search
-    new_search = search_words + places[0].id
-
+    new_search = search_words + " -place:"+places[0].id
+    # + places[0].id
+    print("Place: ", places[0].id)
     '''Search for tweets created before a given date.
     Keep in mind that the Twitter Standard Search API has a 7-day limit.
     In other words, no tweets will be found for a date older than one week.'''
@@ -108,7 +110,8 @@ def work(date_since, date_until, search_words):
                                  toDate=date_until,
                                  ).items(totalTweets):
 
-        db.json_tweet_model(db_client,tweet,search_words)
+        db.json_tweet_model(db_client,tweet._json,search_words)
+        tweets.append(tweet)
 
 
     logging.info ("{}: {} tweets gathered".format(search_words, len(tweets)))
@@ -126,12 +129,12 @@ def work(date_since, date_until, search_words):
 if __name__ == "__main__":
 
     date_since = "201909010000"
-    date_until = "202009020000"
+    date_until = "202009200000"
     list_search_words = ["feel alone depressed","i feel helpless", "i feel sad","i feel empty","sleeping a lot lately","i feel irritable",
     "depressed alcohol","sertraline","Zoloft","Prozac","pills depressed","suicide once more", "pain suicide","mom suicide tried","friend suicide","sister suicide tried","Brother suicide tried",
     "suicide attempted sister", "thought suicide before", "had thoughts suicide","had thoughts killing myself", "i want to commit suicide", "stop cutting myself",
     "i'm being bullied", "feel bullied i'm", "stop bullying me","always getting bullied", "gun suicide", "been diagnosed anorexia", "i diagnosed OCD", "I diagnosed bipolar",
     "dad fight again", "parents fight again", "i impulsive", "i'm impulsive"]
     
-    for search_word in list_search_words:
-        work(date_since, date_until, search_word)
+    for search_word in ["feel"]:
+        work(date_since = date_since , date_until = date_until, search_words=search_word)
