@@ -47,7 +47,6 @@ def work(date_since = None , date_until = None, search_words = None):
     # Exclude retweets in our search
     new_search = search_words + " -place:"+places[0].id
     # + places[0].id
-    print("Place: ", places[0].id)
     '''Search for tweets created before a given date.
     Keep in mind that the Twitter Standard Search API has a 7-day limit.
     In other words, no tweets will be found for a date older than one week.'''
@@ -57,50 +56,24 @@ def work(date_since = None , date_until = None, search_words = None):
     #date_until = "2020-02-02"
 
     # Total tweets to gather in our search
-    totalTweets = 5
+    totalTweets = 100
 
     # Numbers of tweets to return per page, max is 100. Default is 15.
     count = 100
 
-    # Filter by language
-    lang = "en"
-
-    '''Filter by latitude,longitude,radius.
-    # 54.375675 -3.764280 1948mi'''
-    geocode = "54,12 -4,00 315mi"
-
-    # Filter by recent, popular or mixed.
-    result_type = "recent"
-
-    '''Include info on entities found in Tweets, including hashtags,
-    links, and mentions. Set to True or False'''
-    include_entities = True
-
     # Set the name for CSV file  where the tweets will be saved
     filename = "{}_{}".format(search_words,date_until)
 
+
+
     # # Function for handling pagination in our search
     # def limit_handled(cursor):
-    #     keep_going = True
-    #     while keep_going:
+    #     while True:
     #         try:
-    #             try:
-    #                 yield cursor.next()
-    #             except StopIteration:
-    #                 keep_going = False
-    #         except (tweepy.RateLimitError) as e:
-    #             print(e)
-    #             print('Reached rate limite. Sleeping for >30 secondes')
-    #             time.sleep(1 * 30)
-
-    # Function for handling pagination in our search
-    def limit_handled(cursor):
-        while True:
-            try:
-                yield cursor.next()
-            except tweepy.RateLimitError:
-                print('Reached rate limite. Sleeping for >15 minutes')
-                time.sleep(15 * 61)
+    #             yield cursor.next()
+    #         except tweepy.RateLimitError:
+    #             print('Reached rate limite. Sleeping for >15 minutes')
+    #             time.sleep(15 * 61)
             
     tweets = []
     for tweet in tweepy.Cursor(api.search_full_archive,
@@ -136,5 +109,5 @@ if __name__ == "__main__":
     "i'm being bullied", "feel bullied i'm", "stop bullying me","always getting bullied", "gun suicide", "been diagnosed anorexia", "i diagnosed OCD", "I diagnosed bipolar",
     "dad fight again", "parents fight again", "i impulsive", "i'm impulsive"]
     
-    for search_word in ["feel"]:
+    for search_word in list_search_words:
         work(date_since = date_since , date_until = date_until, search_words=search_word)
