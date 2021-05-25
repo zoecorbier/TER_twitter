@@ -8,8 +8,8 @@ import json
 
 import secrets
 
-user=secrets.mongo_name_access
-password=secrets.mongo_password
+user='lucas'
+password='ZLypuuOUx1oBZjB5'
 
 print(user)
 print(password)
@@ -106,6 +106,7 @@ if __name__ == "__main__":
     # all_tweets=bson_to_json_file(get_all_files_from_collection(tweet,'suicide'))
     # print(all_tweets[0])
     # create_collection_name(tweet,'suicide','04_03_2020')
+    print(tweet.tweets.find_one({"id_str":"1206214581191884803"}))
     filen =     {
         "created_at": "Thu Dec 17 19:43:44 +0000 2020",
         "id": 1339657551118360579,
@@ -230,4 +231,4 @@ if __name__ == "__main__":
         "lang": "en"
     }
     
-    json_tweet_model(tweet, filen, "dad fight")
+    #json_tweet_model(tweet, filen, "dad fight")

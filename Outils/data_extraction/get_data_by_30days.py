@@ -102,7 +102,7 @@ def work(date_since, date_until, search_words):
     # tweets = []
     for tweet in limit_handled(tweepy.Cursor(api.search_30_day,
                                 environment_name='devSOS',
-                                query=search_words
+                                query=new_search
                                  ).items(totalTweets)):
 
         mongo.json_tweet_model(db,tweet._json,search_word)

@@ -57,7 +57,7 @@ def work(date_since = None , date_until = None, search_words = None):
     #date_until = "2020-02-02"
 
     # Total tweets to gather in our search
-    totalTweets = 5
+    totalTweets = 100
 
     # Numbers of tweets to return per page, max is 100. Default is 15.
     count = 100
@@ -128,13 +128,13 @@ def work(date_since = None , date_until = None, search_words = None):
     
 if __name__ == "__main__":
 
-    date_since = "201909010000"
-    date_until = "202009200000"
+    date_since = "201912010000"
+    date_until = "201912160000"
     list_search_words = ["feel alone depressed","i feel helpless", "i feel sad","i feel empty","sleeping a lot lately","i feel irritable",
     "depressed alcohol","sertraline","Zoloft","Prozac","pills depressed","suicide once more", "pain suicide","mom suicide tried","friend suicide","sister suicide tried","Brother suicide tried",
     "suicide attempted sister", "thought suicide before", "had thoughts suicide","had thoughts killing myself", "i want to commit suicide", "stop cutting myself",
     "i'm being bullied", "feel bullied i'm", "stop bullying me","always getting bullied", "gun suicide", "been diagnosed anorexia", "i diagnosed OCD", "I diagnosed bipolar",
     "dad fight again", "parents fight again", "i impulsive", "i'm impulsive"]
     
-    for search_word in ["feel"]:
+    for search_word in list_search_words:
         work(date_since = date_since , date_until = date_until, search_words=search_word)
