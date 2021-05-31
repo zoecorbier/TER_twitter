@@ -1,7 +1,16 @@
 $(document).ready(function(){   
   $("#analysisTweet").click(
       function(){
-        alert($("#tweet").val())
+          $.post({
+            url: "Tweet",
+            data: {"tweet": $("#tweet").val()},
+            success: function(rsl){
+                alert("success !", rsl)
+            }
+          }).done(function() {
+            alert("Finish !")
+          });
+
           
       }
   )
