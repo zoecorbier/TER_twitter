@@ -13,14 +13,11 @@
         <div class="col-md-12 mb-12">
             <!-- ############# Input d'entrée ############# !-->
             <label for="tweet" class="card-title">Entrez votre tweet</label>
-            <input class="form-control form-control-sm card-text" type="text" id="tweet" placeholder="Mon tweet">
-            <a href="#!" class="m-3 btn btn-primary">Analyser mon tweet</a>
-    
+            <input class="form-control form-control-sm card-text" value="Job seeking can be incredibly stressful.\n\nIt can make you feel lost.\n\nHurt.\n\nAlone.\n\nNeed I say, depressed.\n\nMany o… https://t.co/XOVbx4fJFQ" type="text" id="tweet" placeholder="Mon tweet">
+            <button class="m-3 btn btn-primary" id='analysisTweet'>Analyser mon tweet</button>
         </div>
         
         <div id="intro" class="col-12 m-2">
-
-                
             <div class="card">
   
                 <!-- Card image -->
@@ -45,6 +42,7 @@
 </div>
 
 </div>
-{% endblock content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/graphique/graphiqueEx.js' %}"></script>
 
-<link rel="stylesheet" href="{% static 'js/graphique/graphiqueEx.js' %}">
+{% endblock content %}
