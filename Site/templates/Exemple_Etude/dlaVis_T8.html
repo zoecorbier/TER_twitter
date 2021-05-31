@@ -1,4 +1,8 @@
+{% extends 'layouts/base.html' %}
+{% load static %} 
+{% block title %}Étude numéro 1{% endblock title %}
 
+{% block content %}
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.css">
 
 
@@ -39,3 +43,4 @@ if(typeof(LDAvis) !== "undefined"){
          });
 }
 </script>
+{% endblock content %}
