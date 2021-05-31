@@ -11,9 +11,13 @@ emo = EMOTION()
 def receivetweet(resquest):
     if resquest.method == "POST":
         tw = resquest.POST.get('tweet')
-        score, word = analysisLDA(tweet = tw)
+        anaLDA = analysisLDA(tweet = tw)
+        if len(anaLDA)>1: 
+            di = {"score":anaLDA[0], "word":anaLDA[1].to_frame().to_html()}
+        else:
+            di = {"score":anaLDA}
         fee = analysisEmotion(tweet = tw)
-        di = {"score":score, "word":word.tolist(), "fee":fee}
+        di["fee"]=fee
         return JsonResponse(di)
 
 def analysisLDA(tweet = "Job seeking can be incredibly stressful.\n\nIt can make you feel lost.\n\nHurt.\n\nAlone.\n\nNeed I say, depressed.\n\nMany o… https://t.co/XOVbx4fJFQ"):

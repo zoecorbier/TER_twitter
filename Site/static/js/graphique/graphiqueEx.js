@@ -5,10 +5,12 @@ $(document).ready(function(){
             url: "Tweet",
             data: {"tweet": $("#tweet").val()},
             success: function(rsl){
-                alert("success !", rsl)
+                alert("success !")
             }
-          }).done(function() {
-            alert("Finish !")
+          }).done(function(data) {
+              
+            console.log(data["score"])
+              console.log(data)
           });
 
           

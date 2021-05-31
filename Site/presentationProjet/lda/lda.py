@@ -8,10 +8,7 @@ import re
 
 import os
 
-import pandas as pd 
-import numpy as np 
 import matplotlib.pyplot as plt 
-import pyLDAvis
 
 import spacy
 
@@ -65,9 +62,9 @@ class LDA():
         #words_topic = self.df_topic_keywords.loc[:, self.df_topic_keywords.columns.intersection(text_clean.split(" "))]
 
         if return_words:
-            return  dict_topic_distribution_scores, words_topic
+            return  pd.Series(dict_topic_distribution_scores).to_frame().to_html(), words_topic
         else:
-            return dict_topic_distribution_scores
+            return pd.Series(dict_topic_distribution_scores).to_frame().to_html()
 
     def _prepare_nlp(self):
         nlp = spacy.load("en_core_web_sm")
