@@ -26,7 +26,7 @@ class LDA():
 
     def __init__(self) -> None:
         self.vectorizer = joblib.load("./presentationProjet/lda/lda_vectorizer")
-        self.model =  joblib.load("./presentationProjet/lda/lda_vectorizer")
+        self.model =  joblib.load("./presentationProjet/lda/lda_model")
         self.nlp = self._prepare_nlp()
         self.lemmatizer = self.nlp.get_pipe("lemmatizer")
         self.topicnames = ["Topic" + str(self._map_on_pyldavis_topinames(i)) for i in range(8)]
@@ -100,21 +100,7 @@ class LDA():
     #     return topic_keywords
 
     def _prepare_df_topic_keywords(self):
-        print("\n\n", self.model)
         df_topic_keywords = pd.DataFrame(self.model.components_) ##### Problème ici : 
-        """
-        File "D:\TER_twitter\Site\presentationProjet\urls.py", line 4, in <module>
-            from . import views # import views so we can use them in urls.
-        File "D:\TER_twitter\Site\presentationProjet\views.py", line 5, in <module>
-            lda = LDA()
-        File "D:\TER_twitter\Site\presentationProjet\lda\lda.py", line 34, in __init__
-            self.df_topic_keywords = self._prepare_df_topic_keywords()
-        File "D:\TER_twitter\Site\presentationProjet\lda\lda.py", line 104, in _prepare_df_topic_keywords
-            df_topic_keywords = pd.DataFrame(self.model.components_)
-        AttributeError: 'CountVectorizer' object has no attribute 'components_'
-                
-        """
-        
         # Assign Column and Index
         print("6")
         df_topic_keywords.columns = self.vectorizer.get_feature_names()
