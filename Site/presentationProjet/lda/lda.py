@@ -30,7 +30,6 @@ class LDA():
         self.nlp = self._prepare_nlp()
         self.lemmatizer = self.nlp.get_pipe("lemmatizer")
         self.topicnames = ["Topic" + str(self._map_on_pyldavis_topinames(i)) for i in range(8)]
-        print("0")
         self.df_topic_keywords = self._prepare_df_topic_keywords()
 
     def _map_on_pyldavis_topinames(self, value):
@@ -72,7 +71,6 @@ class LDA():
 
     def _prepare_nlp(self):
         nlp = spacy.load("en_core_web_sm")
-        print("4")
         words = ["na","rid","nd","bc","rn","ve","nt","www"]
         for w in words:
             nlp.vocab["the"].is_stop = True
@@ -102,7 +100,6 @@ class LDA():
     def _prepare_df_topic_keywords(self):
         df_topic_keywords = pd.DataFrame(self.model.components_) ##### Problème ici : 
         # Assign Column and Index
-        print("6")
         df_topic_keywords.columns = self.vectorizer.get_feature_names()
         df_topic_keywords.index = self.topicnames
         return df_topic_keywords
