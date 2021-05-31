@@ -25,11 +25,12 @@ import joblib
 class LDA():
 
     def __init__(self) -> None:
-        self.vectorizer = joblib.load("lda_vectorizer")
-        self.model =  joblib.load("lda_model")
+        self.vectorizer = joblib.load("./presentationProjet/lda/lda_vectorizer")
+        self.model =  joblib.load("./presentationProjet/lda/lda_vectorizer")
         self.nlp = self._prepare_nlp()
         self.lemmatizer = self.nlp.get_pipe("lemmatizer")
         self.topicnames = ["Topic" + str(self._map_on_pyldavis_topinames(i)) for i in range(8)]
+        print("0")
         self.df_topic_keywords = self._prepare_df_topic_keywords()
 
     def _map_on_pyldavis_topinames(self, value):
@@ -71,7 +72,7 @@ class LDA():
 
     def _prepare_nlp(self):
         nlp = spacy.load("en_core_web_sm")
-
+        print("4")
         words = ["na","rid","nd","bc","rn","ve","nt","www"]
         for w in words:
             nlp.vocab["the"].is_stop = True
@@ -99,8 +100,23 @@ class LDA():
     #     return topic_keywords
 
     def _prepare_df_topic_keywords(self):
-        df_topic_keywords = pd.DataFrame(self.model.components_)
+        print("\n\n", self.model)
+        df_topic_keywords = pd.DataFrame(self.model.components_) ##### Problème ici : 
+        """
+        File "D:\TER_twitter\Site\presentationProjet\urls.py", line 4, in <module>
+            from . import views # import views so we can use them in urls.
+        File "D:\TER_twitter\Site\presentationProjet\views.py", line 5, in <module>
+            lda = LDA()
+        File "D:\TER_twitter\Site\presentationProjet\lda\lda.py", line 34, in __init__
+            self.df_topic_keywords = self._prepare_df_topic_keywords()
+        File "D:\TER_twitter\Site\presentationProjet\lda\lda.py", line 104, in _prepare_df_topic_keywords
+            df_topic_keywords = pd.DataFrame(self.model.components_)
+        AttributeError: 'CountVectorizer' object has no attribute 'components_'
+                
+        """
+        
         # Assign Column and Index
+        print("6")
         df_topic_keywords.columns = self.vectorizer.get_feature_names()
         df_topic_keywords.index = self.topicnames
         return df_topic_keywords
