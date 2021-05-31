@@ -4,16 +4,19 @@ $(document).ready(function(){
           $.post({
             url: "Tweet",
             data: {"tweet": $("#tweet").val()},
-            success: function(rsl){
-                alert("success !")
-            }
+            beforeSend: function(){
+                //
+            },
+            complete: function(){
+                // Statement
+               }
           }).done(function(data) {
-              
-            console.log(data["score"])
+              // score, fee, word
               console.log(data)
+              $("#topic").html(data["score"])
+              $("#word").html(data["word"])
+              $("#fee").html(data["fee"])
           });
-
-          
       }
   )
 });

@@ -16,8 +16,7 @@ def receivetweet(resquest):
             di = {"score":anaLDA[0], "word":anaLDA[1].to_frame().to_html()}
         else:
             di = {"score":anaLDA}
-        fee = analysisEmotion(tweet = tw)
-        di["fee"]=fee
+        di["fee"] = analysisEmotion(tweet = tw)
         return JsonResponse(di)
 
 def analysisLDA(tweet = "Job seeking can be incredibly stressful.\n\nIt can make you feel lost.\n\nHurt.\n\nAlone.\n\nNeed I say, depressed.\n\nMany o… https://t.co/XOVbx4fJFQ"):

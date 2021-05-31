@@ -7,37 +7,38 @@
     <div class="row">
 
 
-        <h2 class="col-12 text-center">Analyse qualitative d'un tweet suicidaire</h2>
+        <h2 class="col-12 text-center m-4">Analyse qualitative d'un tweet suicidaire</h2>
         
         
-        <div class="col-md-12 mb-12">
+        <div class="col-md-12 mb-12 m-4">
             <!-- ############# Input d'entrée ############# !-->
             <label for="tweet" class="card-title">Entrez votre tweet</label>
             <input class="form-control form-control-sm card-text" value="Job seeking can be incredibly stressful.\n\nIt can make you feel lost.\n\nHurt.\n\nAlone.\n\nNeed I say, depressed.\n\nMany o… https://t.co/XOVbx4fJFQ" type="text" id="tweet" placeholder="Mon tweet">
             <button class="m-3 btn btn-primary" id='analysisTweet'>Analyser mon tweet</button>
         </div>
         
-        <div id="intro" class="col-12 m-2">
-            <div class="card">
-  
-                <!-- Card image -->
-                <div class="view overlay">
-                  <img class="card-img-top" src="https://support.content.office.net/fr-fr/media/c957b99e-083e-4443-afc6-c372ea43ed08.png" alt="Card image cap">
-                  <a href="#!">
-                    <div class="mask rgba-white-slight"></div>
-                  </a>
-                </div>
-              
-                <!-- Card content -->
-                <div class="card-body">
-              
-                  <!-- Title -->
-                  <h4 class="card-title">Card title</h4>
-                  <!-- Text -->
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-              </div>
-        </div>
+        <div class="card offset-1 col-5 mr-1 bg-light">
+            <div class="card-body">
+              <h5 class="card-title">Analyse par thème</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Il faut se référer à l'analyse LDA globale</h6>
+              <div id="topic">Some quick example text to build on the card title and make up the bulk of the card's content.</div>
+
+            </div>
+          </div>
+          <div class="card col-5 bg-light">
+            <div class="card-body">
+              <h5 class="card-title">Analyse par mot</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Il faut se référer à l'analyse LDA globale</h6>
+              <div id="word"></div>
+            </div>
+          </div>
+          <div class="card offset-1 col-10 mt-2 bg-light">
+            <div class="card-body">
+              <h5 class="card-title">Analyse par sentiments</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <div id="fee">Some quick example text to build on the card title and make up the bulk of the card's content.</div>
+            </div>
+          </div>
     </div>
 </div>
 
