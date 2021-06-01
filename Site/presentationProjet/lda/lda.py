@@ -1,10 +1,13 @@
 # pip install skl2onnx
 
+
 import pickle
 import pandas as pd
 import numpy as np
 import spacy
 import re
+import plotly.express as px
+import plotly
 
 import os
 
@@ -58,11 +61,11 @@ class LDA():
         dict_topic_distribution_scores = dict(zip(self.topicnames, topic_distribution_scores))
 
         num_topic = self._map_on_pyldavis_topinames(np.argmax(topic_distribution_scores))
-        words_topic = self.df_topic_keywords.loc["Topic{}".format(num_topic), self.df_topic_keywords.columns.intersection(text_clean.split(" "))]
-        #words_topic = self.df_topic_keywords.loc[:, self.df_topic_keywords.columns.intersection(text_clean.split(" "))]
-
+        #words_topic = self.df_topic_keywords.loc["Topic{}".format(num_topic), self.df_topic_keywords.columns.intersection(text_clean.split(" "))]
+        words_topic = self.df_topic_keywords.loc[:, self.df_topic_keywords.columns.intersection(text_clean.split(" "))]
+        fig_words = px.line(words_topic.T)
         if return_words:
-            return  pd.Series(dict_topic_distribution_scores).to_frame().to_html(), words_topic
+            return  pd.Series(dict_topic_distribution_scores).to_frame().to_html(), plotly.io.to_html(fig_words)
         else:
             return pd.Series(dict_topic_distribution_scores).to_frame().to_html()
 
@@ -70,7 +73,7 @@ class LDA():
         nlp = spacy.load("en_core_web_sm")
         words = ["na","rid","nd","bc","rn","ve","nt","www"]
         for w in words:
-            nlp.vocab["the"].is_stop = True
+            nlp.vocab[w].is_stop = True
         return nlp
             
 
@@ -109,7 +112,12 @@ if __name__ == "__main__":
     lda = LDA()
     mytext = "issue at school cant talk to mum and dad"
     prob_scores, words_topic, = lda.predict_topic(text = mytext, return_words=True)
-    print(words_topic)
+    fig_words = px.line(words_topic.T, x="words", y="relevance", color='topics')
+
+    print(words_topic.T)
+    fig_words = px.line(words_topic.T)
+    fig_words.show()
+
     print(prob_scores)
     # Example output:
     # fuck    160.911980
