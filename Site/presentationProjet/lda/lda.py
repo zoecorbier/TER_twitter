@@ -33,7 +33,7 @@ class LDA():
         self.df_topic_keywords = self._prepare_df_topic_keywords()
 
     def _map_on_pyldavis_topinames(self, value):
-        mapper = dict(zip(np.arange(8),[3,4,8,1,7,6,2,5],))
+        mapper = dict(zip(np.arange(8),["Social(-)","Famille(n)","Liberation(+)","Communication(-)","Passage-a-l'acte(-)","Colère(-)","Social(+)","Problèmes(n)"],))
         return mapper[value]
     
 
@@ -64,8 +64,11 @@ class LDA():
         #words_topic = self.df_topic_keywords.loc["Topic{}".format(num_topic), self.df_topic_keywords.columns.intersection(text_clean.split(" "))]
         words_topic = self.df_topic_keywords.loc[:, self.df_topic_keywords.columns.intersection(text_clean.split(" "))]
         fig_words = px.line(words_topic.T)
+        fig_words.update_xaxes(title_text='termes')
+        fig_words.update_yaxes(title_text='% du terme dans le topic')
         if return_words:
             return  pd.Series(dict_topic_distribution_scores).to_frame().to_html(), plotly.io.to_html(fig_words)
+            # return pd.Series(dict_topic_distribution_scores).to_frame(), fig_words
         else:
             return pd.Series(dict_topic_distribution_scores).to_frame().to_html()
 
@@ -98,7 +101,7 @@ class LDA():
     #     return topic_keywords
 
     def _prepare_df_topic_keywords(self):
-        df_topic_keywords = pd.DataFrame(self.model.components_) ##### Problème ici : 
+        df_topic_keywords = pd.DataFrame(self.model.components_ / self.model.components_.sum(axis=1)[:, np.newaxis]) ##### Problème ici : 
         # Assign Column and Index
         df_topic_keywords.columns = self.vectorizer.get_feature_names()
         df_topic_keywords.index = self.topicnames
@@ -110,13 +113,14 @@ if __name__ == "__main__":
 
     # Predict the topic
     lda = LDA()
-    mytext = "issue at school cant talk to mum and dad"
-    prob_scores, words_topic, = lda.predict_topic(text = mytext, return_words=True)
-    fig_words = px.line(words_topic.T, x="words", y="relevance", color='topics')
+    mytext = "Job seeking can be incredibly stressful. It can make you feel lost. Hurt. Alone. Need I say, depressed. Many of us, including me, have been there. It’s not easy. But, it’s not permanent, either. I came across something that I wanted to share"
+    prob_scores, fig_words, = lda.predict_topic(text = mytext, return_words=True)
 
-    print(words_topic.T)
-    fig_words = px.line(words_topic.T)
-    fig_words.show()
+    # fig_words = px.line(words_topic.T, x="words", y="relevance", color='topics')
+
+    # print(words_topic.T)
+    # fig_words = px.line(words_topic.T)
+    # fig_words.show()
 
     print(prob_scores)
     # Example output:
